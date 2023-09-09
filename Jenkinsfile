@@ -20,23 +20,22 @@
                 }
             }
 
-            stage('Build Docker Image') {
-                steps {
-                    script {
-                    // Specify the path to the Dockerfile in the same directory
-                    def dockerfilePath = './Dockerfile'
-
-                    // Build the Docker image using the local Dockerfile
-                    def dockerImage = docker.build("-f ${dockerfilePath} -t ${env.DOCKER_REGISTRY_URL}/nodejs-app:${env.BUILD_NUMBER} .")
-
-                    // Push the Docker image to Docker Hub
-                    docker.withRegistry('', 'docker-hub-credentials-id') {
-                        dockerImage.push("${env.DOCKER_REGISTRY_URL}/nodejs-app:${env.BUILD_NUMBER}")
-                    }
-                    }
-                }
+   stage('Build and Push Docker Image') {
+      environment {
+        DOCKER_IMAGE = "belwalrohit642/nodejs-app:${BUILD_NUMBER}"
+        // DOCKERFILE_LOCATION = "./Dockerfile"
+        REGISTRY_CREDENTIALS = credentials('docker-hub-credentials-id')
+      }
+      steps {
+        script {
+            sh 'docker build -t ${DOCKER_IMAGE} .'
+            def dockerImage = docker.image("${DOCKER_IMAGE}")
+            docker.withRegistry('https://index.docker.io/v1/', "docker-hub-credentials-id") {
+                dockerImage.push()
             }
-
+        }
+      }
+    }
             stage('Deploy to EC2') {
              
                 steps {
