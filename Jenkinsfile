@@ -28,7 +28,7 @@
       }
       steps {
         script {
-            sh 'sudo docker build -t ${DOCKER_IMAGE} .'
+            sh 'docker build -t ${DOCKER_IMAGE} .'
             def dockerImage = docker.image("${DOCKER_IMAGE}")
             docker.withRegistry('https://index.docker.io/v1/', "docker-hub-credentials-id") {
                 dockerImage.push()
