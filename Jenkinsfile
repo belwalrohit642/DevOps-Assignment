@@ -48,6 +48,7 @@ stage('Deploy to EC2') {
                 sh 'ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 "sudo add-apt-repository \'deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable\' -y"'
                 sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'sudo apt-cache policy docker-ce '"
                 sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'sudo apt install -y docker-ce'"
+                sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'sudo usermod -aG docker ubuntu'"
                 sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'docker pull ${env.DOCKER_REGISTRY_URL}/nodejs-app:${env.BUILD_NUMBER}'"
                 sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'docker stop nodejs-app || true'"
                 sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'docker rm nodejs-app || true'"
