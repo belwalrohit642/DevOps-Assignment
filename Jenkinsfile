@@ -14,6 +14,7 @@
 
             stage('Build and Test') {
                 steps {
+                    sh 'echo building and testing'
                   //  sh 'npm install'
                   // sh 'npm test'
                 }
