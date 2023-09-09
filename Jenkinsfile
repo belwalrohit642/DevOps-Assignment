@@ -14,7 +14,7 @@
 
             stage('Build and Test') {
                 steps {
-                    sh 'npm install'
+                  //  sh 'npm install'
                   // sh 'npm test'
                 }
             }
