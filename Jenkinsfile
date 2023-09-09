@@ -21,9 +21,6 @@
             }
 
             stage('Build Docker Image') {
-                when {
-                    branch 'main'
-                }
                 steps {
                     script {
                     // Specify the path to the Dockerfile in the same directory
@@ -41,9 +38,7 @@
             }
 
             stage('Deploy to EC2') {
-                when {
-                    branch 'main'
-                }
+             
                 steps {
                     script {
                         sshagent(['your-ssh-credentials-id']) {
@@ -54,22 +49,6 @@
                         }
                     }
                 }
-            }
-        }
-
-        post {
-            success {
-                slackSend(
-                    color: '#36a64f',
-                    message: "Build ${env.BUILD_NUMBER} successful for ${env.JOB_NAME}"
-                )
-            }
-
-            failure {
-                slackSend(
-                    color: '#FF5733',
-                    message: "Build ${env.BUILD_NUMBER} failed for ${env.JOB_NAME}"
-                )
             }
         }
     }
