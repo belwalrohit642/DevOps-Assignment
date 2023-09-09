@@ -40,7 +40,9 @@
              
                 steps {
                     script {
+                        echo "Connecting to EC2 instance..."
                         sshagent(credentials: ['your-ssh-credentials-id']) {
+                            echo "Running commands on EC2 instance..."
                             sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'docker pull ${env.DOCKER_REGISTRY_URL}/nodejs-app:${env.BUILD_NUMBER}'"
                             sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'docker stop nodejs-app || true'"
                             sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'docker rm nodejs-app || true'"
