@@ -42,7 +42,7 @@ stage('Deploy to EC2') {
             echo "Connecting to EC2 instance..."
             sshagent(credentials: ['your-ssh-credentials-id']) {
                 echo "Running commands on EC2 instance..."
-                sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'sudo apt update'"
+                sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'sudo apt update '"
                 sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'sudo apt install -y apt-transport-https ca-certificates curl software-properties-common'"
                 sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg'"
                 sh 'ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 "echo \'deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\' | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null"'
