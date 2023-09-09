@@ -46,7 +46,7 @@ stage('Deploy to EC2') {
                 sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'sudo apt install apt-transport-https ca-certificates curl software-properties-common -y'"
                 sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -'"
                 sh 'ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 "sudo add-apt-repository \'deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable\' -y"'
-                sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'sudo apt-cache policy docker-ce -y'"
+                sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'sudo apt-cache policy docker-ce '"
                 sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'sudo apt install -y docker-ce'"
                 sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'sudo usermod -aG docker jenkins'"
                 sh "ssh -o StrictHostKeyChecking=no ubuntu@107.22.23.176 'docker pull ${env.DOCKER_REGISTRY_URL}/nodejs-app:${env.BUILD_NUMBER}'"
