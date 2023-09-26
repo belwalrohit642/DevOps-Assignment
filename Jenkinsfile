@@ -17,6 +17,7 @@
                     sh 'echo building and testing'
                   //  sh 'npm install'
                   // sh 'npm test'
+                  // sh 'npm run build'
                 }
             }
 
