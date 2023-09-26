@@ -15,7 +15,7 @@
             stage('Build and Test') {
                 steps {
                     sh 'echo building and testing'
-                  //  sh 'npm install'
+                  //  sh 'npm install --ignore-scripts'
                   // sh 'npm test'
                   // sh 'npm run build'
                 }
